@@ -1,0 +1,28 @@
+{% extends 'cards/base.html' %}
+{% block title %}Card generator{% endblock %}
+{% block content %}
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-centered mt-3">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-centered">
+          <h3 class="mt-5 mb-3">Generator</h3>
+          <div class="alert alert-info">
+              <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <h3><span>{{ error }}</span></h3>
+                <button class="btn btn-outline-success" type="submit">Generate</button>
+              </form>
+          </div>
+          <a href="{% url 'list' %}" class="btn btn-outline-secondary">List of cards</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'cards/base.html' %}
+{% block title %}Card profile{% endblock %}
+{% block content %}
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-centered mt-3">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-centered">
+        <h3 class="mt-5 mb-3">Profile</h3>
+        {% if card %}
+            <div class="alert alert-info">
+                <p>Series: {{ card.series }}</p>
+                <p>Number: {{ card.number }}</p>
+                <p>Created date: {{ card.created_date|date:DATETIME_FORMAT }}</p>
+                <p>Activity expiration date: {{ card.end_date|date:DATETIME_FORMAT }}</p>
+                <p>Status: {{ card.status }}</p>
+                <p>Balance: {{ card.balance }}</p>
+                <p>CVV: {{ card.cvv }}</p>
+                {% if card.status != 'card is overdue' %}
+                <a href="{% url 'change' card.id %}" class="btn btn-outline-warning" role="button" onclick="javascript:alert('The status of the card has been changed');">Change and check status</a>
+                {% endif %}
+                </div>
+        {% else %}
+          <p>No card here</p>
+        {% endif %}
+          <a href="{% url 'list' %}" class="btn btn-outline-info">List of cards</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
