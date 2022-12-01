@@ -1,14 +1,13 @@
-import random
+from django.forms import NumberInput
+from django.utils import timezone
 from django import forms
 from .models import Card
-from django.utils import timezone
-from django.forms import NumberInput
+import random
 
 
 class GenerateCardsForm(forms.ModelForm):
     series = forms.IntegerField()
     count = forms.IntegerField()
-
 
     class Meta:
         model = Card

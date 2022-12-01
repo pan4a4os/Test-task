@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('end_date', models.DateTimeField(default=django.utils.timezone.now, verbose_name='activity end date')),
                 ('cvv', models.IntegerField()),
                 ('balance', models.FloatField(default=0)),
-                ('status', models.CharField(choices=[('INACTIVE', 'card is not active'), ('ACTIVE', 'card is active'), ('OVERDUE', 'card is overdue')], max_length=13)),
+                ('status', models.CharField(choices=[('INACTIVE', 'Card is not active'), ('ACTIVE', 'Card is active'), ('OVERDUE', 'Card is overdue')], max_length=13)),
             ],
             options={
                 'verbose_name': 'Card',

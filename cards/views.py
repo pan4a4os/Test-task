@@ -1,13 +1,12 @@
-from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 from django.views.generic import CreateView
+from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
+from django.db.models import Q
+from django.utils import timezone
 from django.urls import reverse_lazy
 from .models import Card
 from .forms import GenerateCardsForm
-from django.utils import timezone
-from django.db.models import Q
 
 
-# Create your views here.
 def list_of_cards(request):
     cards = Card.objects.order_by('-created_date')
     search_query = request.GET.get('search', '')
@@ -18,11 +17,11 @@ def list_of_cards(request):
                                     Q(end_date__icontains=search_query) |
                                     Q(status__icontains=search_query))
     DATETIME_FORMAT = 'Y-m-d H:i'
-    return render(request, 'cards/list_of_cards.html', {
-        'cards': cards,
-        'search_query': search_query,
-        'DATETIME_FORMAT': DATETIME_FORMAT,
-    })
+    context = {'cards': cards,
+               'search_query': search_query,
+               'DATETIME_FORMAT': DATETIME_FORMAT
+               }
+    return render(request=request, template_name='cards/list_of_cards.html', context=context)
 
 
 class CardGenerateView(CreateView):
@@ -35,10 +34,10 @@ class CardGenerateView(CreateView):
 def profile_card(request, id):
     card = get_object_or_404(Card, id=id)
     DATETIME_FORMAT = 'Y-m-d H:i'
-    return render(request, 'cards/profile_card.html', {
-        'card': card,
-        'DATETIME_FORMAT': DATETIME_FORMAT,
-    })
+    context = {'card': card,
+               'DATETIME_FORMAT': DATETIME_FORMAT
+               }
+    return render(request=request, template_name='cards/profile_card.html', context=context)
 
 
 def delete_card(request, id):

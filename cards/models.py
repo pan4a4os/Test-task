@@ -1,15 +1,14 @@
-from django.db import models
-from django.utils import timezone
 from django.core.validators import RegexValidator
+from django.utils import timezone
+from django.db import models
 
 
-# Create your models here.
 class Card(models.Model):
 
     STATUS_CARD = [
-        ('INACTIVE', 'card is not active'),
-        ('ACTIVE', 'card is active'),
-        ('OVERDUE', 'card is overdue')
+        ('INACTIVE', 'Card is not active'),
+        ('ACTIVE', 'Card is active'),
+        ('OVERDUE', 'Card is overdue')
     ]
 
     series = models.IntegerField()
@@ -22,7 +21,9 @@ class Card(models.Model):
     status = models.CharField(max_length=13, choices=STATUS_CARD)
 
     def __str__(self):
-        return self.status
+        str_series = str(self.series)
+        str_number = str(self.number)
+        return 'Series: {0}; Number: {1}'.format(str_series, self.number)
 
     class Meta:
         verbose_name = 'Card'
